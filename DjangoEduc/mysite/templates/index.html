@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Погода</title>
+</head>
+<body>
+
+<h2>Узнать погоду</h2>
+
+<form method="POST" action="{% url 'weather' %}">
+    {% csrf_token %}
+    <input name="cityweather" type="text" placeholder="Введите город">
+    <button type="submit">Узнать</button>
+</form>
+
+{% if weather %}
+    {% if weather.error %}
+        <p>{{ weather.error }}</p>
+    {% else %}
+        <h3>Погода в городе {{ weather.city }}</h3>
+        <p>Температура: {{ weather.temp }} °C</p>
+        <p>Облачность: {{ weather.clouds }} %</p>
+        <p>Ветер: {{ weather.wind }} м/с</p>
+    {% endif %}
+{% endif %}
+
+</body>
+</html>
